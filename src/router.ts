@@ -2,10 +2,12 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/product", (req, res) => {});
+router.get("/product", (req, res) => {
+  res.json({ message: "Some Message" });
+});
 router.get("/product/:id", () => {});
-router.put("/product", () => {});
-router.post("/product/:id", () => {});
+router.put("/product/:id", () => {});
+router.post("/product", () => {});
 router.delete("/product/:id", () => {});
 
 router.get("/update", () => {});
