@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  throw new Error("hello");
+  res.json({ message: "Hello" });
 });
 
 app.use("/api", protect, router);
