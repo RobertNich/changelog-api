@@ -73,4 +73,15 @@ router.post(
 );
 router.delete("/updatepoint/:id", () => {});
 
+// Error handling for router sub-routes
+router.use((err, req, res, next) => {
+  if (err.type === "auth") {
+    res.status(401).json({ message: "unauthorised" });
+  } else if (err.type === "input") {
+    res.status(400).json({ message: "invalid input" });
+  } else {
+    res.status(500).json("internal error");
+  }
+});
+
 export default router;

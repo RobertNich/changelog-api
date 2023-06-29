@@ -13,14 +13,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  console.log("Hello from Express");
-  res.status(200);
-  res.json({ message: "Hello" });
+  throw new Error("hello");
 });
 
 app.use("/api", protect, router);
 
 app.post("/user", createNewUser);
 app.post("/signin", signin);
+
+// Error handling for main routes
+app.use((err, req, res, next) => {
+  if (err.type === "auth") {
+    res.status(401).json({ message: "unauthorised" });
+  } else if (err.type === "input") {
+    res.status(400).json({ message: "invalid input" });
+  } else {
+    res.status(500).json("internal error");
+  }
+});
 
 export default app;
